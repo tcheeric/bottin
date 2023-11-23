@@ -19,7 +19,6 @@ import nostr.si4n6r.util.EncryptionUtil;
 
 import java.io.IOException;
 import java.net.URLDecoder;
-import java.net.URLEncoder;
 import java.nio.charset.StandardCharsets;
 import java.util.ServiceLoader;
 
