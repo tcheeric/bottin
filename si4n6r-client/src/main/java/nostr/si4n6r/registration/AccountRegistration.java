@@ -31,7 +31,7 @@ public class AccountRegistration extends AbstractBaseRegistration<AccountProxy> 
 
     private final String password;
 
-    private static final String URL_PATH = "/si4n6r-servlet-1.0-SNAPSHOT";
+    private static final String URL_PATH = "/si4n6r-servlet";
     private static final String URL_RESOURCE_REGISTER = "/register";
     private static final String URL_RESOURCE_LOGIN = "/login";
 
@@ -55,6 +55,7 @@ public class AccountRegistration extends AbstractBaseRegistration<AccountProxy> 
             log.log(Level.INFO, "Response Content: {0}", responseContent);
         } catch (IOException | URISyntaxException e) {
             log.log(Level.SEVERE, "An error has occurred: ", e);
+            throw new RuntimeException(e);
         } finally {
             if (connection != null) {
                 connection.disconnect();
