@@ -1,0 +1,10 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="JpaBuddyIdeaProjectConfig" ddlActionDbType="postgres" useNamedParametersForRepoQuery="true" newRepositoryParent="org.springframework.data.jpa.repository.JpaRepository">
+    <option name="defaultUnitInitialized" value="true" />
+    <option name="renamerInitialized" value="true" />
+    <option name="liquibaseAuthor" value="" />
+    <option name="reverseEngineeringLastDbConnectionId" value="b7cf9df2-dd27-443e-8372-5acb1324b2a3" />
+    <option name="reLastEntityCreationPackage" value="bottin/src/main/java/nostr/si4n6r/bottin/model" />
+  </component>
+</project>
