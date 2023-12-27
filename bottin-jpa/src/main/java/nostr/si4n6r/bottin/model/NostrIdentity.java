@@ -1,6 +1,5 @@
 package nostr.si4n6r.bottin.model;
 
-import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
@@ -12,6 +11,7 @@ import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
+@Getter
 @lombok.NoArgsConstructor
 @lombok.Setter
 @Entity(name = "identity")
@@ -21,35 +21,28 @@ public class NostrIdentity {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     @Column(name = "id", nullable = false)
-    @Getter
     private Long id;
 
     @Column(name = "uuid", unique = true, nullable = false, length = Integer.MAX_VALUE)
-    @Getter
     private String uuid;
 
     @Column(name = "localpart", nullable = false, length = Integer.MAX_VALUE)
-    @Getter
     private String localpart;
 
     @Column(name = "domain", nullable = false, length = Integer.MAX_VALUE)
-    @Getter
     private String domain;
 
     @Column(name = "public_key", nullable = false, unique = true, length = Integer.MAX_VALUE)
-    @Getter
     private String publicKey;
 
     @Column(name = "created_at", nullable = false)
-    @Getter
     private Date createdAt;
 
-    @ManyToMany(cascade = {CascadeType.ALL}, fetch = FetchType.EAGER)
+    @ManyToMany(fetch = FetchType.EAGER, cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @JoinTable(name = "t_identity_relay",
             joinColumns = @JoinColumn(name = "identity_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "relay_id", referencedColumnName = "id"))
     @RestResource(exported = false)
-    @Getter
     private List<Relay> relays = new ArrayList<>();
 
     @Override

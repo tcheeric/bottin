@@ -40,7 +40,7 @@ public class IdentityRegistrationHandler implements Handler<Handler.Result>{
         securityManager.addPrincipal(principal);
 
         var app = new ApplicationProxy(appPubKey);
-        var decodedAppName = URLDecoder.decode(appName, StandardCharsets.UTF_8.toString());
+        var decodedAppName = URLDecoder.decode(appName, StandardCharsets.UTF_8);
         app.setName(decodedAppName);
 
         var account = new AccountProxy();

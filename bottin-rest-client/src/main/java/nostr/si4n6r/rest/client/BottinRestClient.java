@@ -3,14 +3,10 @@ package nostr.si4n6r.rest.client;
 import lombok.Data;
 import lombok.extern.java.Log;
 import nostr.si4n6r.bottin.model.dto.BaseDto;
-import nostr.si4n6r.bottin.rest.repository.NostrIdentityRepository;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Component;
-import org.springframework.stereotype.Service;
 import org.springframework.web.client.RestTemplate;
 import org.springframework.web.util.UriComponentsBuilder;
 
@@ -97,6 +93,9 @@ public class BottinRestClient<T extends BaseDto> {
         String url = UriComponentsBuilder.fromHttpUrl(getBaseUrl()).pathSegment("count").toUriString();
         log.log(Level.INFO, "Sending request: {0}", url);
         ResponseEntity<Long> response = restTemplate.getForEntity(url, Long.class);
+        if (response == null) {
+            return 0;
+        }
         log.log(Level.INFO, "Received response: {0}", response.getBody());
         return response.getBody();
     }

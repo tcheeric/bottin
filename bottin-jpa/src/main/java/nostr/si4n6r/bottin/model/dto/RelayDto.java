@@ -1,16 +1,18 @@
 package nostr.si4n6r.bottin.model.dto;
 
-import com.fasterxml.jackson.annotation.*;
-import lombok.*;
+import com.fasterxml.jackson.annotation.JsonIgnore;
+import lombok.Data;
+import lombok.EqualsAndHashCode;
+import lombok.ToString;
 
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 /**
  * DTO for {@link nostr.si4n6r.bottin.model.Relay}
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class RelayDto extends BaseDto implements Serializable {
     private String name;

@@ -1,6 +1,5 @@
 package nostr.si4n6r.bottin.model;
 
-import com.fasterxml.jackson.annotation.*;
 import jakarta.persistence.*;
 import lombok.ToString;
 import org.hibernate.proxy.HibernateProxy;
@@ -35,7 +34,7 @@ public class Relay {
     @Column(name = "created_at", nullable = false)
     private Date createdAt;
 
-    @ManyToMany(mappedBy = "relays", cascade = {CascadeType.ALL})
+    @ManyToMany(mappedBy = "relays", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
     @RestResource(exported = false)
     @ToString.Exclude
     private List<NostrIdentity> identities = new ArrayList<>();

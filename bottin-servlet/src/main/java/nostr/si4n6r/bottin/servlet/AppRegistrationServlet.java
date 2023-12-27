@@ -24,7 +24,7 @@ public class AppRegistrationServlet extends HttpServlet {
         var result = handler.handle();
 
         response.setContentType("application/json");
-        sendResponse(response, result, HttpServletResponse.SC_OK);
+        sendResponse(response, result);
     }
 
     private ApplicationProxy.ApplicationTemplate getTemplate(HttpServletRequest request) {
@@ -39,10 +39,10 @@ public class AppRegistrationServlet extends HttpServlet {
         return template;
     }
 
-    private void sendResponse(HttpServletResponse response, Handler.Result authResult, int status) throws IOException {
+    private void sendResponse(HttpServletResponse response, Handler.Result authResult) throws IOException {
         var objectMapper = new ObjectMapper();
         var result = objectMapper.writeValueAsString(authResult);
-        response.setStatus(status);
+        response.setStatus(HttpServletResponse.SC_OK);
         response.getWriter().write(result);
     }
 }

@@ -1,16 +1,16 @@
 package nostr.si4n6r.bottin.model.dto;
 
-import com.fasterxml.jackson.annotation.*;
-import lombok.AllArgsConstructor;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import lombok.EqualsAndHashCode;
 
 import java.io.Serializable;
-import java.util.*;
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * DTO for {@link nostr.si4n6r.bottin.model.NostrIdentity}
  */
+@EqualsAndHashCode(callSuper = true)
 @Data
 public class NostrIdentityDto extends BaseDto implements Serializable {
     private String localpart;
