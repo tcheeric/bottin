@@ -3,7 +3,6 @@ package nostr.si4n6r.bottin.servlet.handler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import nostr.base.PublicKey;
-import nostr.si4n6r.core.impl.Principal;
 import nostr.si4n6r.util.EncryptionUtil;
 
 @Data
@@ -23,8 +22,7 @@ public class AuthenticationHandler implements Handler<Handler.Result> {
         authResult.setNpub(npub);
         authResult.setHashedPassword(EncryptionUtil.hashSHA256(password));
 
-        var principal = Principal.getInstance(new PublicKey(npub), password);
-        principal.decryptNsec();
+        EncryptionUtil.decryptNsec(new PublicKey(npub), password);
 
         authResult.setResult(Result.RESULT_SUCCESS);
         return authResult;

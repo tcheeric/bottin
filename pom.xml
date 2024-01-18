@@ -89,6 +89,28 @@
         <flatten-maven-plugin.version>1.5.0</flatten-maven-plugin.version>
         <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
 
+        <spring.boot.starter.test.version>3.2.0</spring.boot.starter.test.version>
+        <spring.boot.maven.plugin.version>3.2.0</spring.boot.maven.plugin.version>
+        <spring.boot.starter.data.jpa.version>3.2.0</spring.boot.starter.data.jpa.version>
+        <spring.boot.starter.jdbc.version>3.2.0</spring.boot.starter.jdbc.version>
+        <spring.boot.starter.validation.version>3.2.0</spring.boot.starter.validation.version>
+        <spring.boot.starter.data.rest.version>3.2.0</spring.boot.starter.data.rest.version>
+        <spring.boot.starter.web.version>3.2.0</spring.boot.starter.web.version>
+        <spring.boot.starter.test.version>3.2.0</spring.boot.starter.test.version>
+
+        <hibernate.version>6.2.4.Final</hibernate.version>
+        <jaxb.version>4.0.2</jaxb.version>
+        <mapstruct.version>1.4.2.Final</mapstruct.version>
+
+        <postgresql.version>42.3.1</postgresql.version>
+
+        <logback.version>1.4.11</logback.version>
+        <lombok.version>1.18.24</lombok.version>
+        <jakarta.servlet-api.version>6.0.0</jakarta.servlet-api.version>
+        <jackson.databind.version>2.15.1</jackson.databind.version>
+        <junit.version>5.9.2</junit.version>
+        <maven-war-plugin.version>3.3.2</maven-war-plugin.version>
+
         <tomcat7-maven-plugin.version>2.2</tomcat7-maven-plugin.version>
 
         <jakarta.servlet-api.version>6.0.0</jakarta.servlet-api.version>

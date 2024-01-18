@@ -3,10 +3,11 @@ package nostr.si4n6r.bottin.servlet.handler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
-import nostr.base.PublicKey;
-import nostr.si4n6r.core.impl.SecurityManager;
-import nostr.si4n6r.core.impl.*;
+import nostr.si4n6r.core.impl.AccountProxy;
+import nostr.si4n6r.core.impl.ApplicationProxy;
+import nostr.si4n6r.core.impl.BaseActorProxy;
 import nostr.si4n6r.storage.Vault;
+import nostr.si4n6r.storage.fs.NostrAccountFSVault;
 import nostr.si4n6r.util.EncryptionUtil;
 
 import java.net.URLDecoder;
@@ -32,12 +33,8 @@ public class IdentityRegistrationHandler implements Handler<Handler.Result>{
         return handleRegistration();
     }
 
-    private Result handleRegistration() throws Exception {
+    private Result handleRegistration() {
         var result = new Result();
-
-        var principal = Principal.getInstance(new PublicKey(npub), password);
-        var securityManager = SecurityManager.getInstance();
-        securityManager.addPrincipal(principal);
 
         var app = new ApplicationProxy(appPubKey);
         var decodedAppName = URLDecoder.decode(appName, StandardCharsets.UTF_8);
@@ -50,6 +47,7 @@ public class IdentityRegistrationHandler implements Handler<Handler.Result>{
         account.setApplication(app);
 
         Vault<AccountProxy> vault = getVault();
+        ((NostrAccountFSVault)vault).setPassword(password);
         vault.store(account);
 
         result.setNpub(npub);
