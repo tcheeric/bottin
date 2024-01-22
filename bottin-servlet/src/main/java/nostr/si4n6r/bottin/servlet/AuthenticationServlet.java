@@ -5,12 +5,15 @@ import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import lombok.extern.java.Log;
 import nostr.si4n6r.bottin.servlet.handler.AuthenticationHandler;
 import nostr.si4n6r.bottin.servlet.handler.Handler;
 
 import java.io.IOException;
+import java.util.logging.Level;
 
 @WebServlet(name = "AuthenticationServlet", urlPatterns = {"/auth"})
+@Log
 public class AuthenticationServlet extends HttpServlet {
 
     /**
@@ -30,6 +33,7 @@ public class AuthenticationServlet extends HttpServlet {
         try {
             var handler = new AuthenticationHandler(npub, password);
             var authResult = handler.handle();
+            log.log(Level.INFO, "Authentication result: {0}", authResult);
             sendResponse(response, authResult, HttpServletResponse.SC_OK);
         } catch (Exception ex) {
             var authResult = new Handler.Result();

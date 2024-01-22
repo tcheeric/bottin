@@ -40,6 +40,7 @@ public class IdentityRegistrationServlet extends HttpServlet {
         try {
             var handler = new IdentityRegistrationHandler(npub, nsec, password, appName, appPubKey);
             var registerResult = handler.handle();
+            log.info("Registration result: " + registerResult);
             sendResponse(response, registerResult, HttpServletResponse.SC_OK);
         } catch (Exception ex) {
             var registerResult = new Handler.Result();

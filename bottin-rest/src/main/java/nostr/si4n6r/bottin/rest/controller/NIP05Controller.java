@@ -62,6 +62,8 @@ public class NIP05Controller {
             relayUrls.add(relay.getUrl());
         }
 
-        return mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
+        var json = mapper.writerWithDefaultPrettyPrinter().writeValueAsString(jsonObject);
+        log.log(Level.INFO, "result: {0}", json);
+        return json;
     }
 }
