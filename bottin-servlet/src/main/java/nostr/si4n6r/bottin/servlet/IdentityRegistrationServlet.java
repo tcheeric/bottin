@@ -33,12 +33,13 @@ public class IdentityRegistrationServlet extends HttpServlet {
 
         String npub = request.getParameter("npub");
         String nsec = request.getParameter("nsec");
+        String name = request.getParameter("name");
         String password = request.getParameter("password");
         String appName = request.getParameter("appName");
         String appPubKey = request.getParameter("appPubKey");
 
         try {
-            var handler = new IdentityRegistrationHandler(npub, nsec, password, appName, appPubKey);
+            var handler = new IdentityRegistrationHandler(npub, nsec, name, password, appName, appPubKey);
             var registerResult = handler.handle();
             log.info("Registration result: " + registerResult);
             sendResponse(response, registerResult, HttpServletResponse.SC_OK);

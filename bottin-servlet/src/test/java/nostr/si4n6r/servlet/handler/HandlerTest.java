@@ -4,8 +4,8 @@ import nostr.id.Identity;
 import nostr.si4n6r.bottin.servlet.handler.AppRegistrationHandler;
 import nostr.si4n6r.bottin.servlet.handler.Handler;
 import nostr.si4n6r.bottin.servlet.handler.IdentityRegistrationHandler;
-import nostr.si4n6r.core.impl.AccountProxy;
-import nostr.si4n6r.core.impl.ApplicationProxy;
+import nostr.si4n6r.storage.common.AccountProxy;
+import nostr.si4n6r.storage.common.ApplicationProxy;
 import nostr.si4n6r.util.EncryptionUtil;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -27,7 +27,7 @@ public class HandlerTest {
         var applicationIdentity = Identity.generateRandomIdentity();
         final String appPublicKey = applicationIdentity.getPublicKey().toString();
 
-        ApplicationProxy.ApplicationTemplate template = new ApplicationProxy.ApplicationTemplate();
+        var template = new ApplicationProxy.ApplicationTemplate();
         template.setName("Test_Application_" + System.currentTimeMillis());
         template.setUrl("https://github.com/tcheeric/demo-nip46-app");
         template.setDescription("This is a test application");
@@ -51,7 +51,7 @@ public class HandlerTest {
         accountProxy.setApplication(applicationProxy);
 
 
-        var userRegistrationHandler = new IdentityRegistrationHandler(accountPublicKey, accountPrivateKey, "password", applicationProxy.getName(), applicationProxy.getPublicKey());
+        var userRegistrationHandler = new IdentityRegistrationHandler(accountPublicKey, accountPrivateKey, "registerAccount_" + System.currentTimeMillis(), "password", applicationProxy.getName(), applicationProxy.getPublicKey());
         result = userRegistrationHandler.handle();
 
         assertEquals(Handler.Result.RESULT_SUCCESS, result.getResult());

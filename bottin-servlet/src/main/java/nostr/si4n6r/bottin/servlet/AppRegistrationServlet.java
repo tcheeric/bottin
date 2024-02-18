@@ -7,8 +7,7 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import nostr.si4n6r.bottin.servlet.handler.AppRegistrationHandler;
 import nostr.si4n6r.bottin.servlet.handler.Handler;
-import nostr.si4n6r.core.impl.ApplicationProxy;
-
+import nostr.si4n6r.storage.common.ApplicationProxy;
 import java.io.IOException;
 import java.util.Arrays;
 
@@ -18,7 +17,7 @@ public class AppRegistrationServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws IOException {
         String publicKey = request.getParameter("publicKey");
-        ApplicationProxy.ApplicationTemplate template = getTemplate(request);
+        var template = getTemplate(request);
 
         var handler = new AppRegistrationHandler(publicKey, template);
         var result = handler.handle();

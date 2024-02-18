@@ -1,7 +1,7 @@
 package nostr.si4n6r.bottin.servlet.handler;
 
 import lombok.AllArgsConstructor;
-import nostr.si4n6r.core.impl.ApplicationProxy;
+import nostr.si4n6r.storage.common.ApplicationProxy;
 import nostr.si4n6r.storage.fs.NostrApplicationFSVault;
 
 @AllArgsConstructor

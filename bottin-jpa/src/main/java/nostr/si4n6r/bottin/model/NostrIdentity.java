@@ -1,5 +1,6 @@
 package nostr.si4n6r.bottin.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
@@ -42,7 +43,7 @@ public class NostrIdentity {
     @JoinTable(name = "t_identity_relay",
             joinColumns = @JoinColumn(name = "identity_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "relay_id", referencedColumnName = "id"))
-    @RestResource(exported = false)
+    @JsonIgnore
     private List<Relay> relays = new ArrayList<>();
 
     @Override

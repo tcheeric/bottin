@@ -3,10 +3,10 @@ package nostr.si4n6r.bottin.servlet.handler;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
-import nostr.si4n6r.core.impl.AccountProxy;
-import nostr.si4n6r.core.impl.ApplicationProxy;
-import nostr.si4n6r.core.impl.BaseActorProxy;
 import nostr.si4n6r.storage.Vault;
+import nostr.si4n6r.storage.common.AccountProxy;
+import nostr.si4n6r.storage.common.ApplicationProxy;
+import nostr.si4n6r.storage.common.BaseActorProxy;
 import nostr.si4n6r.storage.fs.NostrAccountFSVault;
 import nostr.si4n6r.util.EncryptionUtil;
 
@@ -18,18 +18,29 @@ import java.util.ServiceLoader;
 @AllArgsConstructor
 public class IdentityRegistrationHandler implements Handler<Handler.Result>{
 
+    @NonNull
     private final String npub;
+
+    @NonNull
     private final String nsec;
+
+    @NonNull
+    private final String name;
+
+    @NonNull
     private final String password;
+
+    @NonNull
     private final String appName;
+
+    @NonNull
     private final String appPubKey;
 
     /**
      * @return
-     * @throws Exception
      */
     @Override
-    public Result handle() throws Exception {
+    public Result handle() {
         return handleRegistration();
     }
 
@@ -43,7 +54,7 @@ public class IdentityRegistrationHandler implements Handler<Handler.Result>{
         var account = new AccountProxy();
         account.setPrivateKey(nsec);
         account.setPublicKey(npub);
-        account.setId(System.currentTimeMillis());
+        account.setId(name);
         account.setApplication(app);
 
         Vault<AccountProxy> vault = getVault();

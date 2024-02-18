@@ -35,7 +35,6 @@ public class Relay {
     private Date createdAt;
 
     @ManyToMany(mappedBy = "relays", cascade = {CascadeType.DETACH, CascadeType.MERGE, CascadeType.PERSIST, CascadeType.REFRESH})
-    @RestResource(exported = false)
     @ToString.Exclude
     private List<NostrIdentity> identities = new ArrayList<>();
 
