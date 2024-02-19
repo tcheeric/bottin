@@ -100,7 +100,7 @@ public class BottinRestClient<T extends BaseDto> {
         return response.getBody();
     }
 
-    private String getBaseUrl() {
+    private String getBaseUrl() { //TODO - This is ugly
         return "http://localhost:6060/" + entity;
     }
 }

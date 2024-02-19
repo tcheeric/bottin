@@ -5,7 +5,6 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.ToString;
 import org.hibernate.proxy.HibernateProxy;
-import org.springframework.data.rest.core.annotation.RestResource;
 
 import java.util.ArrayList;
 import java.util.Date;

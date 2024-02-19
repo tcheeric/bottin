@@ -22,7 +22,7 @@ public class HandlerTest {
 
     @Test
     @DisplayName("Register a new account")
-    public void registerAccount() throws Exception {
+    public void registerAccount() {
 
         var applicationIdentity = Identity.generateRandomIdentity();
         final String appPublicKey = applicationIdentity.getPublicKey().toString();
