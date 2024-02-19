@@ -9,6 +9,7 @@ import nostr.si4n6r.util.EncryptionUtil;
 @AllArgsConstructor
 public class AuthenticationHandler implements Handler<Handler.Result> {
 
+    private final String name;
     private final String npub;
     private final String password;
 
@@ -22,7 +23,7 @@ public class AuthenticationHandler implements Handler<Handler.Result> {
         authResult.setNpub(npub);
         authResult.setHashedPassword(EncryptionUtil.hashSHA256(password));
 
-        EncryptionUtil.decryptNsec(new PublicKey(npub), password);
+        EncryptionUtil.decryptNsec(name, new PublicKey(npub), password);
 
         authResult.setResult(Result.RESULT_SUCCESS);
         return authResult;

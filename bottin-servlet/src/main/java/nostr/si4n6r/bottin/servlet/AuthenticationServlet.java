@@ -27,11 +27,12 @@ public class AuthenticationServlet extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
 
+        String name = request.getParameter("name");
         String npub = request.getParameter("npub");
         String password = request.getParameter("password");
 
         try {
-            var handler = new AuthenticationHandler(npub, password);
+            var handler = new AuthenticationHandler(name, npub, password);
             var authResult = handler.handle();
             log.log(Level.INFO, "Authentication result: {0}", authResult);
             sendResponse(response, authResult, HttpServletResponse.SC_OK);
