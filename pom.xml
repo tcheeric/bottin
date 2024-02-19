@@ -11,6 +11,7 @@
         <module>bottin-rest</module>
         <module>bottin-jpa</module>
         <module>bottin-rest-client</module>
+        <module>bottin-api</module>
     </modules>
 
     <build>
