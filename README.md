@@ -1,2 +1,7 @@
-# nostr-web
-This is a web application that provides features for user authentication (login), creating new user accounts, and registering nostr client applications to the vault.
+# bottin
+`bottin` is the French for "address book". 
+This is a simple web application that provides an API for managing user accounts and client applications:
+ - Nostr client application registration
+ - User registration
+ - User authentication
+ - NIPO5 verification
