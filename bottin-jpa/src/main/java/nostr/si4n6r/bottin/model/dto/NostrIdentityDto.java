@@ -3,6 +3,7 @@ package nostr.si4n6r.bottin.model.dto;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 
+import java.beans.Transient;
 import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.List;
@@ -32,5 +33,10 @@ public class NostrIdentityDto extends BaseDto implements Serializable {
         this.domain = domain;
         this.publicKey = publicKey;
         this.relays = relays;
+    }
+
+    @Transient
+    public String getNip05() {
+        return localpart + "@" + domain;
     }
 }

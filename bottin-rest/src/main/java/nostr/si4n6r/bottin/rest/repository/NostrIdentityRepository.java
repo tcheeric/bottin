@@ -9,7 +9,7 @@ import org.springframework.lang.NonNull;
 
 import java.util.List;
 
-@RepositoryRestResource(collectionResourceRel = "identities", path = "identities")
+@RepositoryRestResource(collectionResourceRel = "identities", path = "identity")
 public interface NostrIdentityRepository extends PagingAndSortingRepository<NostrIdentity, Long>, CrudRepository<NostrIdentity, Long> {
 
     @Override

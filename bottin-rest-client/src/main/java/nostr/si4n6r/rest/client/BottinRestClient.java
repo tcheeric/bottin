@@ -43,7 +43,6 @@ public class BottinRestClient<T extends BaseDto> {
         ResponseEntity<T> response = restTemplate.getForEntity(url, clazz);
         log.log(Level.INFO, "Received response: {0}", response.getBody());
         return response.getBody();
-
     }
 
     public void update(Long id, T dtoEntity) {
@@ -100,7 +99,7 @@ public class BottinRestClient<T extends BaseDto> {
         return response.getBody();
     }
 
-    private String getBaseUrl() { //TODO - This is ugly
+    protected String getBaseUrl() { //TODO - This is ugly
         return "http://localhost:6060/" + entity;
     }
 }

@@ -27,7 +27,7 @@ public class BottinRestClientTest {
     @BeforeEach
     public void setUp() {
         MockitoAnnotations.openMocks(this);
-        restClient = new BottinRestClient<>("relays", RelayDto.class);
+        restClient = new BottinRestClient<>("relay", RelayDto.class);
         restClient.setRestTemplate(restTemplate);
     }
 

@@ -3,15 +3,17 @@ package nostr.si4n6r;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NonNull;
+import nostr.si4n6r.rest.client.IdentityRestClient;
 
 import java.io.IOException;
 import java.net.HttpURLConnection;
+import java.net.URI;
+import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-
+// TODO - Rename package to match the project's name
 /**
  * Hello world!
- *
  */
 public class API {
     private final WebModule rest;
@@ -28,10 +30,9 @@ public class API {
             @NonNull String name,
             @NonNull String url,
             @NonNull String description,
-            @NonNull String[] icons)
-    {
+            @NonNull String[] icons) {
         try {
-            URL servletUrl = new URL(servlet.getURL() + "/app");
+            URL servletUrl = new URI(servlet.getURL() + "/app").toURL();
             HttpURLConnection conn = (HttpURLConnection) servletUrl.openConnection();
 
             conn.setRequestMethod("POST");
@@ -54,12 +55,14 @@ public class API {
 
         } catch (IOException e) {
             throw new RuntimeException("Failed to register app", e);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public void authenticate(@NonNull String name, @NonNull String npub, @NonNull String password) {
         try {
-            URL servletUrl = new URL(servlet.getURL() + "/auth");
+            URL servletUrl = new URI(servlet.getURL() + "/auth").toURL();
             HttpURLConnection conn = (HttpURLConnection) servletUrl.openConnection();
 
             conn.setRequestMethod("POST");
@@ -80,6 +83,8 @@ public class API {
 
         } catch (IOException e) {
             throw new RuntimeException("Failed to authenticate", e);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 
@@ -89,10 +94,9 @@ public class API {
             @NonNull String name,
             @NonNull String password,
             @NonNull String appName,
-            @NonNull String appPubKey)
-    {
+            @NonNull String appPubKey) {
         try {
-            URL servletUrl = new URL(servlet.getURL() + "/identity");
+            URL servletUrl = new URI(servlet.getURL() + "/identity").toURL();
             HttpURLConnection conn = (HttpURLConnection) servletUrl.openConnection();
 
             conn.setRequestMethod("POST");
@@ -114,12 +118,14 @@ public class API {
 
         } catch (IOException e) {
             throw new RuntimeException("Failed to register", e);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
     }
 
     public String nip05Verify(@NonNull String localPart, @NonNull String domain) {
         try {
-            URL servletUrl = new URL(rest.getURL() + "/nip05");
+            URL servletUrl = new URI(rest.getURL() + "/nip05").toURL();
             HttpURLConnection conn = (HttpURLConnection) servletUrl.openConnection();
 
             conn.setRequestMethod("GET");
@@ -141,7 +147,15 @@ public class API {
             return conn.getResponseMessage();
         } catch (IOException e) {
             throw new RuntimeException("Failed to verify nip05", e);
+        } catch (URISyntaxException e) {
+            throw new RuntimeException(e);
         }
+    }
+
+    public String getNip05(@NonNull String publicKey) {
+        var idRestClient = new IdentityRestClient();
+        var identity = idRestClient.getByPublicKey(publicKey);
+        return identity.getNip05();
     }
 
     @Data
