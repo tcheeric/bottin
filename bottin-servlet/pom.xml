@@ -27,7 +27,7 @@
         </dependency>
         <dependency>
             <groupId>${project.groupId}</groupId>
-            <artifactId>si4n6r-core</artifactId>
+            <artifactId>bottin-api</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
@@ -47,7 +47,7 @@
         </dependency>
         <dependency>
             <groupId>nostr.si4n6r</groupId>
-            <artifactId>bottin-rest</artifactId>
+            <artifactId>bottin-rest-client</artifactId>
             <version>${project.version}</version>
         </dependency>
         <dependency>
