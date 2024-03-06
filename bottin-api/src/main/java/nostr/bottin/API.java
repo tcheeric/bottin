@@ -13,10 +13,7 @@ import java.net.URI;
 import java.net.URISyntaxException;
 import java.net.URL;
 import java.nio.charset.StandardCharsets;
-// TODO - Rename package to match the project's name
-/**
- * Hello world!
- */
+
 public class API {
     private final WebModule rest;
     private final WebModule servlet;
@@ -25,7 +22,6 @@ public class API {
         this.rest = new WebModule("Bottin Rest", "localhost", 6060);
         this.servlet = new WebModule("Bottin Servlet", "localhost", 8080);
     }
-
 
     public void registerApp(
             @NonNull String publicKey,

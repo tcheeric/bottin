@@ -23,7 +23,6 @@ public class NIP05Handler implements Handler<Handler.Result> {
         var result = new Result();
         var nip05Verification = api.nip05Verify(local, domain);
         result.setResult(Base64.getEncoder().encodeToString(nip05Verification.getBytes(StandardCharsets.UTF_8)));
-        //result.setResult(Result.RESULT_SUCCESS);
         return result;
     }
 }
