@@ -5,7 +5,9 @@ import lombok.Data;
 import lombok.NonNull;
 import nostr.si4n6r.rest.client.IdentityRestClient;
 
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URI;
 import java.net.URISyntaxException;
@@ -62,19 +64,7 @@ public class API {
 
     public void authenticate(@NonNull String name, @NonNull String npub, @NonNull String password) {
         try {
-            URL servletUrl = new URI(servlet.getURL() + "/auth").toURL();
-            HttpURLConnection conn = (HttpURLConnection) servletUrl.openConnection();
-
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setDoOutput(true);
-
-            String body = String.format("name=%s&npub=%s&password=%s", name, npub, password);
-
-            try (var os = conn.getOutputStream()) {
-                byte[] input = body.getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
-            }
+            HttpURLConnection conn = getHttpURLConnection("/auth", String.format("name=%s&npub=%s&password=%s", name, npub, password));
 
             int code = conn.getResponseCode();
             if (code != 200) {
@@ -96,20 +86,8 @@ public class API {
             @NonNull String appName,
             @NonNull String appPubKey) {
         try {
-            URL servletUrl = new URI(servlet.getURL() + "/identity").toURL();
-            HttpURLConnection conn = (HttpURLConnection) servletUrl.openConnection();
-
-            conn.setRequestMethod("POST");
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setDoOutput(true);
-
-            String body = String.format("npub=%s&nsec=%s&name=%s&password=%s&appName=%s&appPubKey=%s",
-                    npub, nsec, name, password, appName, appPubKey);
-
-            try (var os = conn.getOutputStream()) {
-                byte[] input = body.getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
-            }
+            HttpURLConnection conn = getHttpURLConnection("/identity", String.format("npub=%s&nsec=%s&name=%s&password=%s&appName=%s&appPubKey=%s",
+                    npub, nsec, name, password, appName, appPubKey));
 
             int code = conn.getResponseCode();
             if (code != 200) {
@@ -123,43 +101,61 @@ public class API {
         }
     }
 
+
     public String nip05Verify(@NonNull String localPart, @NonNull String domain) {
         try {
-            URL servletUrl = new URI(rest.getURL() + "/nip05").toURL();
-            HttpURLConnection conn = (HttpURLConnection) servletUrl.openConnection();
+            var servletUrl = new URI(rest.getURL() + String.format("/nip05/localpart/%s/domain/%s", localPart, domain)).toURL();
+            var conn = (HttpURLConnection) servletUrl.openConnection();
 
             conn.setRequestMethod("GET");
-            conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
-            conn.setDoOutput(true);
-
-            String body = String.format("localpart=%s&domain=%s", localPart, domain);
-
-            try (var os = conn.getOutputStream()) {
-                byte[] input = body.getBytes(StandardCharsets.UTF_8);
-                os.write(input, 0, input.length);
-            }
 
             int code = conn.getResponseCode();
             if (code != 200) {
                 throw new RuntimeException("Failed to verify nip05: HTTP error code : " + code);
             }
 
-            return conn.getResponseMessage();
+            // Read the response
+            try (var br = new BufferedReader(new InputStreamReader(conn.getInputStream(), StandardCharsets.UTF_8))) {
+                StringBuilder response = new StringBuilder();
+                String responseLine;
+                while ((responseLine = br.readLine()) != null) {
+                    response.append(responseLine.trim());
+                }
+                return response.toString();
+            }
         } catch (IOException e) {
             throw new RuntimeException("Failed to verify nip05", e);
         } catch (URISyntaxException e) {
             throw new RuntimeException(e);
         }
     }
-
     public String getNip05(@NonNull String publicKey) {
         var idRestClient = new IdentityRestClient();
         var identity = idRestClient.getByPublicKey(publicKey);
         return identity.getNip05();
     }
 
+    private HttpURLConnection getHttpURLConnection(String path, String name) throws URISyntaxException, IOException {
+        URL servletUrl = new URI(servlet.getURL() + path).toURL();
+        HttpURLConnection conn = (HttpURLConnection) servletUrl.openConnection();
+
+        conn.setRequestMethod("POST");
+        conn.setRequestProperty("Content-Type", "application/x-www-form-urlencoded");
+        conn.setDoOutput(true);
+
+        String body = name;
+
+        try (var os = conn.getOutputStream()) {
+            byte[] input = body.getBytes(StandardCharsets.UTF_8);
+            os.write(input, 0, input.length);
+        }
+        return conn;
+    }
+
+
     @Data
     @AllArgsConstructor
+    // TODO - Use configuration file instead!
     private static class WebModule {
         private final String name;
         private final String hostname;

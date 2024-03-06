@@ -6,7 +6,6 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.extern.java.Log;
-import nostr.si4n6r.bottin.servlet.handler.AuthenticationHandler;
 import nostr.si4n6r.bottin.servlet.handler.Handler;
 import nostr.si4n6r.bottin.servlet.handler.NIP05Handler;
 
@@ -16,6 +15,32 @@ import java.util.logging.Level;
 @WebServlet(name = "NIP05Servlet", urlPatterns = {"/nip05"})
 @Log
 public class NIP05Servlet extends HttpServlet {
+
+    /**
+     * Handles the HTTP <code>GET</code> method.
+     *
+     * @param request  servlet request
+     * @param response servlet response
+     * @throws IOException      if an I/O error occurs
+     */
+    @Override
+    protected void doGet(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        processRequest(request, response);
+    }
+
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request  servlet request
+     * @param response servlet response
+     * @throws IOException      if an I/O error occurs
+     */
+    @Override
+    protected void doPost(HttpServletRequest request, HttpServletResponse response)
+            throws IOException {
+        processRequest(request, response);
+    }
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response) throws IOException {
         response.setContentType("application/json");
